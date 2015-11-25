@@ -1,5 +1,7 @@
 # Archeyjs
 
+[![NPM](https://nodei.co/npm/archeyjs.png)](https://nodei.co/npm/archeyjs/)
+
 This is a simple archey like clone, which gives system info in a web browser.
 
 **still under development**
