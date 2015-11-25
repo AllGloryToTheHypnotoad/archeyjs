@@ -1,8 +1,14 @@
 # Archeyjs
 
+[![npm](https://img.shields.io/npm/v/archeyjs.svg)](https://github.com/walchko/archeyjs)
+[![npm](https://img.shields.io/npm/l/archeyjs.svg)](https://github.com/walchko/archeyjs)
+
 [![NPM](https://nodei.co/npm/archeyjs.png)](https://nodei.co/npm/archeyjs/)
 
 This is a simple archey like clone, which gives system info in a web browser.
+
+Why? I have several Raspberry Pi's doing things and I wanted a simple cross platform way
+to see what they are up too.
 
 **still under development**
 
@@ -63,4 +69,11 @@ Which gives:
 
 # To Do
 
+* include file system
+* include better linux distribution identification
+* better documentation
+
+# Change Log
+
+* 1.0.0 2015/11/25 Initiated
 
