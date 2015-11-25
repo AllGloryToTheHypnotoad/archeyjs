@@ -76,5 +76,6 @@ Which gives:
 
 # Change Log
 
-* 1.0.0 2015/11/25 Initiated
+* 1.0.1 2015/11/25 Small linux fixes
+* 1.0.0 2015/11/24 Initiated
 

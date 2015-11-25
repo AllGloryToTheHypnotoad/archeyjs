@@ -1,6 +1,6 @@
 {
 	"name": "archeyjs",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "JS version of archey",
 	"main": "index.js",
 	"scripts": {
