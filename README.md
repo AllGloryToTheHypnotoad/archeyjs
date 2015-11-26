@@ -19,7 +19,7 @@ to see what they are up too.
 
 Command line:
 
-    [kevin@Tardis archeyjs]$ node index.js -h
+    [kevin@Tardis archeyjs]$ archeyjs -h
     
     Usage: index archeyjs [options]
     
@@ -60,6 +60,10 @@ Which gives:
     },
     "timestamp":"2015-11-25T07:05:39.713Z"}
 
+## Curl
+
+    curl -i -X GET http://localhost:8080/json
+
 # Install
 
     npm install -g archeyjs
@@ -76,6 +80,7 @@ Which gives:
 
 # Change Log
 
+* 1.0.2 2015/11/25 CLI fixes
 * 1.0.1 2015/11/25 Small linux fixes
 * 1.0.0 2015/11/24 Initiated
 

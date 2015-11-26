@@ -1,6 +1,6 @@
 {
 	"name": "archeyjs",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"description": "JS version of archey",
 	"bin": {
 		"archeyjs": "./bin/server.js"
