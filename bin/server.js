@@ -1,19 +1,18 @@
-//var monitor = require("os-monitor");
+#!/usr/bin/env node
+
 var debug = require('debug')('kevin:mon')
 //var chalk = require('chalk');
 var program = require('commander');
-// var parser = require('parser-yaml');
-//var jsonfile = require('jsonfile');
 
 var http = require('http');                     // http-server
 
-var sysinfo = require('./lib/sysinfo.js');
-var makePage = require('./lib/page.js');
+var sysinfo = require('../lib/sysinfo.js');
+var makePage = require('../lib/page.js');
 
 // var spawn = require('child_process').exec;
 // var ls = spawn('ls -alh');
 
-var pck = require('./package.json');
+var pck = require('../package.json');
 
 program
 	.version(pck.version)

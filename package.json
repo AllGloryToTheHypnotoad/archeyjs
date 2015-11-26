@@ -2,11 +2,14 @@
 	"name": "archeyjs",
 	"version": "1.0.1",
 	"description": "JS version of archey",
-	"main": "index.js",
+	"bin": {
+		"archeyjs": "./bin/server.js"
+	},
+	"main": "./bin/server.js",
 	"scripts": {
-		"debug": "DEBUG=* node index.js", 
+		"debug": "DEBUG=* node ./bin/server.js", 
 		"test": "echo \"Error: no test specified\" && exit 0",
-		"start": "node index.js"
+		"start": "node ./bin/server.js"
 	},
 	"author": "Kevin J. Walchko <kevin.walchko@outlook.com>",
 	"keywords": ["archey","system info", "os info", "info"],
