@@ -24,6 +24,7 @@
 		"chalk":"*",
 		"osx-release":"*",
 		"http":"*",
-		"socket.io":"*"
+		"socket.io":"*",
+		"qr-image":"*"
 	}
 }
