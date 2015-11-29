@@ -28,6 +28,13 @@ Command line:
       -h, --help         output usage information
       -V, --version      output the version number
       -p, --port <port>  Http server port number
+      -r, --no-static    Do real-time webpage updates
+
+The `--no-static` option updates the web page in real-time with info that changes (i.e.,
+load, memory, and time stamp). This uses `socket.io` with seems to use a lot of resources
+to talk between the node server and the web page.
+
+The `--port` is the port used by the server.
 
 You can connect with a web browser at:
 
@@ -36,6 +43,13 @@ You can connect with a web browser at:
 Or get a json response back by:
 
     http://localhost:8080/json
+
+There is also a QR code icon in at the bottom, which will create a QR code of the hostname,
+IPv4, IPv6, and MAC address. You can also get to it by:
+
+    http://localhost:8080/qr
+
+![](./pics/qr.png)
 
 Which gives:
 
@@ -70,7 +84,11 @@ Which gives:
 
 ## Linux Setup
 
+TBD
+
 ## OSX Setup
+
+TBD
 
 # To Do
 
@@ -80,6 +98,7 @@ Which gives:
 
 # Change Log
 
+* 1.0.3 2015/11/28 new real-time, QR, and storage status
 * 1.0.2 2015/11/25 CLI fixes
 * 1.0.1 2015/11/25 Small linux fixes
 * 1.0.0 2015/11/24 Initiated

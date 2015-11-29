@@ -1,40 +1,47 @@
 #!/usr/bin/env node
 
-var debug = require('debug')('kevin:mon')
-//var chalk = require('chalk');
-var program = require('commander');
+var debug = require('debug')('kevin:mon')  // debugging
+//var chalk = require('chalk');            // colors
+var program = require('commander');        // CLI access
+var os = require('os');                    // OS access
+var http = require('http');                // http-server
 
-var http = require('http');                     // http-server
+var sysinfo = require('../lib/sysinfo.js');   // get system info
+var makePage = require('../lib/page.js');     // create web page
+var realtime = require('../lib/realtime.js'); // update web page via socket.io
+var qr = require('../lib/qr.js');             // draw QR image w/ network info
 
-var sysinfo = require('../lib/sysinfo.js');
-var makePage = require('../lib/page.js');
-
-// var spawn = require('child_process').exec;
-// var ls = spawn('ls -alh');
-
+// grab info from npm package
 var pck = require('../package.json');
 
 program
 	.version(pck.version)
+	.description(pck.description)
 	.usage(pck.name + ' [options]')
-	.option('-p, --port <port>','Http server port number',parseInt,8080)
+	.option('-p, --port <port>','Http server port number, default: 8080',parseInt,8080)
+	.option('-r, --no-static','Do real-time webpage updates')
+// 	.option('-u, --update','update time for real-time, default: 1000 msec', parseInt, 1000)
 	.parse(process.argv);
+	
+// debug('argv: '+process.argv);
+// debug('!rt: '+ program.static);
+// debug('rt: ' + (program.realtime ? true : false) );
+// debug('test: '+ program.test);
+debug('archeyjs ready on port: '+ program.port);
 
-// var disk = require('diskusage');
-//  
-// // get disk usage. Takes mount point as first parameter 
-// disk.check('/', function(err, info) {
-//     console.log(info.available);
-//     console.log(info.free);
-//     console.log(info.total);
-// });
+// not sure real-time info is worth it on small RPi
+var rt = false;
+if(!program.static){
+	rt = true;
+}
 
 // Simple REST server
 server = http.createServer(function(req, res){
     var path = req.url; 
-    debug( path );
+    debug( 'path: ' + path );
     
-	var info = sysinfo();
+	var info = sysinfo.sysinfo();
+	var qrimage = qr(info);
 	
 	if ( path == '/json'){
 		if (req.method == 'GET') {
@@ -46,10 +53,14 @@ server = http.createServer(function(req, res){
 	else if ( path == '/' ){
 		if (req.method == 'GET') {
 			res.writeHead(200,{'Content-Type': 'text/html'});
-			res.write(makePage(info));
+			res.write(makePage(info,rt));
 			res.end();
 		}
 	}
+	else if ( path === '/qr' ){
+        res.writeHead(200, {'Content-Type': 'image/png'});
+        qrimage.pipe(res);
+    }
 	else {
 		// force users to / or /json
 		debug("Wrong path " + path)
@@ -59,6 +70,11 @@ server = http.createServer(function(req, res){
 	}
 });
 
+if (rt) {
+	realtime(server,1000);
+}
+
+// start web server
 server.listen(program.port);
 
 
