@@ -12,7 +12,10 @@
 PRG="archeyjs"
 DAEMON="/usr/local/bin/$PRG"
 PID="/var/run/archeyjs.pid"
-CONFIG="/etc/default/archeyjs"
+ARGS="--port 9000 --no-static"
+
+
+# CONFIG="/etc/default/archeyjs"
 
 set -e
 
@@ -24,14 +27,14 @@ set -e
 # umask 022
 
 # check defaults
-if test -f $CONFIG; then
-    . $CONFIG
-fi
+# if test -f $CONFIG; then
+#     . $CONFIG
+# fi
 
 . /lib/lsb/init-functions
 
 # if [ -n "$2" ]; then
-#     SSHD_OPTS="$SSHD_OPTS $2"
+#     ARGS="$ARGS $2"
 # fi
 
 # Are we running from init?
@@ -78,13 +81,13 @@ check_for_upstart() {
 #     fi
 # }
 
-check_config() {
-#     if [ ! -e /etc/ssh/sshd_not_to_be_run ]; then
-	$DAEMON $SSHD_OPTS -t || exit 1
-#     fi
-}
+# check_config() {
+# #     if [ ! -e /etc/ssh/sshd_not_to_be_run ]; then
+# 	$DAEMON $ARGS -t || exit 1
+# #     fi
+# }
 
-# export PATH="${PATH:+$PATH:}/usr/sbin:/sbin"
+export PATH="${PATH:+$PATH:}/usr/local/bin"
 
 case "$1" in
   start)
@@ -93,7 +96,7 @@ case "$1" in
 # 	check_for_no_start
 # 	check_dev_null
 	log_daemon_msg "Starting archeyjs server" "archeyjs" || true
-	if start-stop-daemon --start --quiet --oknodo --pidfile $PID --exec $DAEMON -- $SSHD_OPTS; then
+	if start-stop-daemon --start --quiet --oknodo --pidfile $PID --exec $DAEMON -- $ARGS; then
 	    log_end_msg 0 || true
 	else
 	    log_end_msg 1 || true
@@ -129,7 +132,7 @@ case "$1" in
 	start-stop-daemon --stop --quiet --oknodo --retry 30 --pidfile $PID
 # 	check_for_no_start log_end_msg
 # 	check_dev_null log_end_msg
-	if start-stop-daemon --start --quiet --oknodo --pidfile $PID --exec $DAEMON -- $SSHD_OPTS; then
+	if start-stop-daemon --start --quiet --oknodo --pidfile $PID --exec $DAEMON -- $ARGS; then
 	    log_end_msg 0 || true
 	else
 	    log_end_msg 1 || true
@@ -148,7 +151,7 @@ case "$1" in
 		# old daemon stopped
 # 		check_for_no_start log_end_msg
 # 		check_dev_null log_end_msg
-		if start-stop-daemon --start --quiet --oknodo --pidfile $PID --exec $DAEMON -- $SSHD_OPTS; then
+		if start-stop-daemon --start --quiet --oknodo --pidfile $PID --exec $DAEMON -- $ARGS; then
 		    log_end_msg 0 || true
 		else
 		    log_end_msg 1 || true
