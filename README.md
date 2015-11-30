@@ -8,8 +8,8 @@
 
 This is a simple archey like clone, which gives system info in a web browser.
 
-Why? I have several Raspberry Pi's doing things and I wanted a simple cross platform way
-to see what they are up too.
+Why? I have several headless Raspberry Pi's doing things and I wanted a simple cross 
+platform way to see what they are up too.
 
 **still under development**
 
@@ -27,14 +27,15 @@ Command line:
     
       -h, --help         output usage information
       -V, --version      output the version number
-      -p, --port <port>  Http server port number
+      -p, --port <port>  Http server port number, default: 8080
       -r, --no-static    Do real-time webpage updates
 
 The `--no-static` option updates the web page in real-time with info that changes (i.e.,
 load, memory, and time stamp). This uses `socket.io` with seems to use a lot of resources
-to talk between the node server and the web page.
+to talk between the node server and the web page. The default is just a static page to 
+reduce resource requirements.
 
-The `--port` is the port used by the server.
+The `--port` is the port used by the server. The default is `8080`.
 
 You can connect with a web browser at:
 
@@ -43,13 +44,6 @@ You can connect with a web browser at:
 Or get a json response back by:
 
     http://localhost:8080/json
-
-There is also a QR code icon in at the bottom, which will create a QR code of the hostname,
-IPv4, IPv6, and MAC address. You can also get to it by:
-
-    http://localhost:8080/qr
-
-![](./pics/qr.png)
 
 Which gives:
 
@@ -74,6 +68,13 @@ Which gives:
     },
     "timestamp":"2015-11-25T07:05:39.713Z"}
 
+There is also a QR code icon in at the bottom right, which will create a QR code of the 
+hostname, IPv4, IPv6, and MAC address. You can also get to it by:
+
+    http://localhost:8080/qr
+
+![](./pics/qr.png)
+
 ## Curl
 
     curl -i -X GET http://localhost:8080/json
@@ -90,15 +91,10 @@ TBD
 
 TBD
 
-# To Do
-
-* include file system
-* include better linux distribution identification
-* better documentation
-
 # Change Log
 
-* 1.0.3 2015/11/28 new real-time, QR, and storage status
+* 1.0.4 2015/11/29 Documentation typo fixes and bug fixes
+* 1.0.3 2015/11/28 New real-time, QR, and storage status
 * 1.0.2 2015/11/25 CLI fixes
 * 1.0.1 2015/11/25 Small linux fixes
 * 1.0.0 2015/11/24 Initiated

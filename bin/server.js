@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-var debug = require('debug')('kevin:mon')  // debugging
+var debug = require('debug')('kevin:mon'); // debugging
 //var chalk = require('chalk');            // colors
 var program = require('commander');        // CLI access
-var os = require('os');                    // OS access
+//var os = require('os');                    // OS access
 var http = require('http');                // http-server
 
 var sysinfo = require('../lib/sysinfo.js');   // get system info
@@ -36,13 +36,14 @@ if(!program.static){
 }
 
 // Simple REST server
-server = http.createServer(function(req, res){
+var server = http.createServer(function(req, res){
     var path = req.url; 
     debug( 'path: ' + path );
     
 	var info = sysinfo.sysinfo();
 	var qrimage = qr(info);
 	
+	// return json
 	if ( path == '/json'){
 		if (req.method == 'GET') {
 			res.writeHead(200,{'Content-Type': 'text/json'});
@@ -50,6 +51,7 @@ server = http.createServer(function(req, res){
 			res.end();
 		}
 	}
+	// return status web page
 	else if ( path == '/' ){
 		if (req.method == 'GET') {
 			res.writeHead(200,{'Content-Type': 'text/html'});
@@ -57,10 +59,12 @@ server = http.createServer(function(req, res){
 			res.end();
 		}
 	}
+	// return QR image
 	else if ( path === '/qr' ){
         res.writeHead(200, {'Content-Type': 'image/png'});
         qrimage.pipe(res);
     }
+    // return error
 	else {
 		// force users to / or /json
 		debug("Wrong path " + path)
