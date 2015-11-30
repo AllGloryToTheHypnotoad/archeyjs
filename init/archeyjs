@@ -96,7 +96,8 @@ case "$1" in
 # 	check_for_no_start
 # 	check_dev_null
 	log_daemon_msg "Starting archeyjs server" "archeyjs" || true
-	if start-stop-daemon --start --quiet --oknodo --pidfile $PID --exec $DAEMON -- $ARGS; then
+# 	if start-stop-daemon --start --quiet --oknodo --pidfile $PID --exec $DAEMON -- $ARGS; then
+	if start-stop-daemon --start --pidfile $PID --exec $DAEMON -- $ARGS; then
 	    log_end_msg 0 || true
 	else
 	    log_end_msg 1 || true
@@ -105,7 +106,8 @@ case "$1" in
   stop)
 # 	check_for_upstart 0
 	log_daemon_msg "Stopping archeyjs server" "archeyjs" || true
-	if start-stop-daemon --stop --quiet --oknodo --pidfile $PID; then
+# 	if start-stop-daemon --stop --quiet --oknodo --pidfile $PID; then
+	if start-stop-daemon --stop --pidfile $PID; then
 	    log_end_msg 0 || true
 	else
 	    log_end_msg 1 || true
@@ -129,10 +131,12 @@ case "$1" in
 # 	check_privsep_dir
 # 	check_config
 	log_daemon_msg "Restarting archeyjs server" "archeyjs" || true
-	start-stop-daemon --stop --quiet --oknodo --retry 30 --pidfile $PID
+# 	start-stop-daemon --stop --quiet --oknodo --retry 30 --pidfile $PID
+	start-stop-daemon --stop --pidfile $PID
 # 	check_for_no_start log_end_msg
 # 	check_dev_null log_end_msg
-	if start-stop-daemon --start --quiet --oknodo --pidfile $PID --exec $DAEMON -- $ARGS; then
+# 	if start-stop-daemon --start --quiet --oknodo --pidfile $PID --exec $DAEMON -- $ARGS; then
+	if start-stop-daemon --start --pidfile $PID --exec $DAEMON -- $ARGS; then
 	    log_end_msg 0 || true
 	else
 	    log_end_msg 1 || true
