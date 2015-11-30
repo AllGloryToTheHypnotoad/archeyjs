@@ -100,7 +100,12 @@ Create a file `/etc/systemd/system/archeyjs.service`:
 	[Install]
 	WantedBy=multi-user.target
 
-Then you can use `sudo systemctl start|stop|status archeyjs.service` to start, stop, or 
+Then do:
+
+    sudo systemctl endable archeyjs.service
+    sudo systemctl start archeyjs.service
+
+Now you can use `sudo systemctl start|stop|status archeyjs.service` to start, stop, or 
 find the current status of the server.
 
 # Change Log
