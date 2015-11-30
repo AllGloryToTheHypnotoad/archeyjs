@@ -83,12 +83,29 @@ hostname, IPv4, IPv6, and MAC address. You can also get to it by:
 
     npm install -g archeyjs
 
-## Linux Setup
+## Linux (Raspbian - Jessie) Setup
 
-TBD
+Create a file `/etc/systemd/system/archeyjs.service`:
+
+	[Service]
+	ExecStart=/usr/local/bin/archeyjs
+	Restart=always
+	StandardOutput=syslog
+	StandardError=syslog
+	SyslogIdentifier=archeyjs
+	User=pi
+	Group=pi
+	Environment=NODE_ENV=production
+
+	[Install]
+	WantedBy=multi-user.target
+
+Then you can use `sudo systemctl start|stop|status archeyjs.service` to start, stop, or 
+find the current status of the server.
 
 # Change Log
 
+* 1.0.5 2015/11/30 Documented systemd script for linux
 * 1.0.4 2015/11/29 Documentation typo and bug fixes
 * 1.0.3 2015/11/28 New real-time, QR, and storage status
 * 1.0.2 2015/11/25 CLI fixes
