@@ -87,13 +87,9 @@ hostname, IPv4, IPv6, and MAC address. You can also get to it by:
 
 TBD
 
-## OSX Setup
-
-TBD
-
 # Change Log
 
-* 1.0.4 2015/11/29 Documentation typo fixes and bug fixes
+* 1.0.4 2015/11/29 Documentation typo and bug fixes
 * 1.0.3 2015/11/28 New real-time, QR, and storage status
 * 1.0.2 2015/11/25 CLI fixes
 * 1.0.1 2015/11/25 Small linux fixes
