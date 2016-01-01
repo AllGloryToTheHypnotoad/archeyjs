@@ -110,10 +110,13 @@ find the current status of the server.
 
 # Change Log
 
-* 1.0.5 2015/11/30 Documented systemd script for linux
-* 1.0.4 2015/11/29 Documentation typo and bug fixes
-* 1.0.3 2015/11/28 New real-time, QR, and storage status
-* 1.0.2 2015/11/25 CLI fixes
-* 1.0.1 2015/11/25 Small linux fixes
-* 1.0.0 2015/11/24 Initiated
+| Version | Date       | Comments |
+|---------|------------|----------|
+| 1.0.6   | 2016/1/1   | Minor updates |
+| 1.0.5   | 2015/11/30 | Documented systemd script for linux |
+| 1.0.4   | 2015/11/29 | Documentation typo and bug fixes |
+| 1.0.3   | 2015/11/28 | New real-time, QR, and storage status |
+| 1.0.2   | 2015/11/25 | CLI fixes |
+| 1.0.1   | 2015/11/25 | Small linux fixes |
+| 1.0.0   | 2015/11/24 | Initiated |
 
