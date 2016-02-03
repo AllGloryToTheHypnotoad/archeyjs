@@ -83,22 +83,29 @@ hostname, IPv4, IPv6, and MAC address. You can also get to it by:
 
     npm install -g archeyjs
 
+## Develop
+
+    git clone https://github.com/walchko/archeyjs.git
+    cd archeyjs
+    npm install
+    npm link
+
 ## Linux (Raspbian - Jessie) Setup
 
 Create a file `/etc/systemd/system/archeyjs.service`:
 
-	[Service]
-	ExecStart=/usr/local/bin/archeyjs
-	Restart=always
-	StandardOutput=syslog
-	StandardError=syslog
-	SyslogIdentifier=archeyjs
-	User=pi
-	Group=pi
-	Environment=NODE_ENV=production
+    [Service]
+    ExecStart=/usr/local/bin/archeyjs
+    Restart=always
+    StandardOutput=syslog
+    StandardError=syslog
+    SyslogIdentifier=archeyjs
+    User=pi
+    Group=pi
+    Environment=NODE_ENV=production
 
-	[Install]
-	WantedBy=multi-user.target
+    [Install]
+    WantedBy=multi-user.target
 
 Then do:
 
@@ -112,6 +119,7 @@ find the current status of the server.
 
 | Version | Date       | Comments |
 |---------|------------|----------|
+| 1.0.7   | 2016/1/8   | Minor fixes |
 | 1.0.6   | 2016/1/1   | Minor updates |
 | 1.0.5   | 2015/11/30 | Documented systemd script for linux |
 | 1.0.4   | 2015/11/29 | Documentation typo and bug fixes |

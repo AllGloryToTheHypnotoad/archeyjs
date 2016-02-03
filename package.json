@@ -1,6 +1,6 @@
 {
 	"name": "archeyjs",
-	"version": "1.0.5",
+	"version": "1.0.7",
 	"description": "JS version of archey. Allows headless systems to report status via web browser or json response.",
 	"bin": {
 		"archeyjs": "./bin/server.js"
