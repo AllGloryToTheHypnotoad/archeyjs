@@ -119,7 +119,7 @@ find the current status of the server.
 
 | Version | Date       | Comments |
 |---------|------------|----------|
-| 1.0.7   | 2016/4/20  | Cleaned up the storage reading |
+| 1.0.8   | 2016/4/20  | Cleaned up the storage reading |
 | 1.0.7   | 2016/1/8   | Minor fixes |
 | 1.0.6   | 2016/1/1   | Minor updates |
 | 1.0.5   | 2015/11/30 | Documented systemd script for linux |
