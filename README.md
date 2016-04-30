@@ -8,7 +8,7 @@
 
 This is a simple archey like clone, which gives system info in a web browser.
 
-Why? I have several headless Raspberry Pi's doing things and I wanted a simple cross 
+Why? I have several headless Raspberry Pi's doing things and I wanted a simple cross
 platform way to see what they are up too.
 
 **still under development**
@@ -20,11 +20,11 @@ platform way to see what they are up too.
 Command line:
 
     [kevin@Tardis archeyjs]$ archeyjs -h
-    
+
     Usage: index archeyjs [options]
-    
+
     Options:
-    
+
       -h, --help         output usage information
       -V, --version      output the version number
       -p, --port <port>  Http server port number, default: 8080
@@ -32,7 +32,7 @@ Command line:
 
 The `--no-static` option updates the web page in real-time with info that changes (i.e.,
 load, memory, and time stamp). This uses `socket.io` with seems to use a lot of resources
-to talk between the node server and the web page. The default is just a static page to 
+to talk between the node server and the web page. The default is just a static page to
 reduce resource requirements.
 
 The `--port` is the port used by the server. The default is `8080`.
@@ -68,7 +68,7 @@ Which gives:
     },
     "timestamp":"2015-11-25T07:05:39.713Z"}
 
-There is also a QR code icon in at the bottom right, which will create a QR code of the 
+There is also a QR code icon in at the bottom right, which will create a QR code of the
 hostname, IPv4, IPv6, and MAC address. You can also get to it by:
 
     http://localhost:8080/qr
@@ -112,13 +112,14 @@ Then do:
     sudo systemctl endable archeyjs.service
     sudo systemctl start archeyjs.service
 
-Now you can use `sudo systemctl start|stop|status archeyjs.service` to start, stop, or 
+Now you can use `sudo systemctl start|stop|status archeyjs.service` to start, stop, or
 find the current status of the server.
 
 # Change Log
 
 | Version | Date       | Comments |
 |---------|------------|----------|
+| 1.0.7   | 2016/4/20  | Cleaned up the storage reading |
 | 1.0.7   | 2016/1/8   | Minor fixes |
 | 1.0.6   | 2016/1/1   | Minor updates |
 | 1.0.5   | 2015/11/30 | Documented systemd script for linux |
@@ -127,4 +128,3 @@ find the current status of the server.
 | 1.0.2   | 2015/11/25 | CLI fixes |
 | 1.0.1   | 2015/11/25 | Small linux fixes |
 | 1.0.0   | 2015/11/24 | Initiated |
-

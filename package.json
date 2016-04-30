@@ -1,13 +1,13 @@
 {
 	"name": "archeyjs",
-	"version": "1.0.7",
+	"version": "1.0.8",
 	"description": "JS version of archey. Allows headless systems to report status via web browser or json response.",
 	"bin": {
 		"archeyjs": "./bin/server.js"
 	},
 	"main": "./bin/server.js",
 	"scripts": {
-		"debug": "DEBUG=* node ./bin/server.js", 
+		"debug": "DEBUG=* node ./bin/server.js",
 		"test": "echo \"Error: no test specified\" && exit 0",
 		"start": "node ./bin/server.js"
 	},
