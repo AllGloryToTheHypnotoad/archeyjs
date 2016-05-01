@@ -18,15 +18,10 @@ program
 	.version(pck.version)
 	.description(pck.description)
 	.usage(pck.name + ' [options]')
-	.option('-p, --port <port>','Http server port number, default: 8080',parseInt,8080)
+	.option('-p, --port <port>','Http server port number, default: 8080',8080)
 	.option('-r, --no-static','Do real-time webpage updates')
-// 	.option('-u, --update','update time for real-time, default: 1000 msec', parseInt, 1000)
 	.parse(process.argv);
-	
-// debug('argv: '+process.argv);
-// debug('!rt: '+ program.static);
-// debug('rt: ' + (program.realtime ? true : false) );
-// debug('test: '+ program.test);
+
 debug('archeyjs ready on port: '+ program.port);
 
 // not sure real-time info is worth it on small RPi
@@ -37,12 +32,12 @@ if(!program.static){
 
 // Simple REST server
 var server = http.createServer(function(req, res){
-    var path = req.url; 
+    var path = req.url;
     debug( 'path: ' + path );
-    
+
 	var info = sysinfo.sysinfo();
 	var qrimage = qr(info);
-	
+
 	// return json
 	if ( path == '/json'){
 		if (req.method == 'GET') {
@@ -70,7 +65,7 @@ var server = http.createServer(function(req, res){
 		debug("Wrong path " + path)
 		res.writeHead(404, "Not Found", {'Content-Type': 'text/html'});
 		res.write("Wrong path: use http://localhost:"+program.port+" or http:localhost:"+program.port+"/json\n");
-		res.end(); 
+		res.end();
 	}
 });
 
@@ -80,7 +75,3 @@ if (rt) {
 
 // start web server
 server.listen(program.port);
-
-
-
-
