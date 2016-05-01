@@ -109,7 +109,7 @@ Create a file `/etc/systemd/system/archeyjs.service`:
 
 Then do:
 
-    sudo systemctl endable archeyjs.service
+    sudo systemctl enable archeyjs.service
     sudo systemctl start archeyjs.service
 
 Now you can use `sudo systemctl start|stop|status archeyjs.service` to start, stop, or
@@ -119,6 +119,7 @@ find the current status of the server.
 
 | Version | Date       | Comments |
 |---------|------------|----------|
+| 1.0.9   | 2016/4/30  | Minor fixes  |
 | 1.0.8   | 2016/4/20  | Cleaned up the storage reading |
 | 1.0.7   | 2016/1/8   | Minor fixes |
 | 1.0.6   | 2016/1/1   | Minor updates |
