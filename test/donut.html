@@ -1,0 +1,169 @@
+<!doctype html>
+<html>
+
+<head>
+	<title>www.chartjs.org</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.0.1/Chart.bundle.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	<style>
+		table.center { margin-left:auto; margin-right:auto;}
+		td.bold {font-weight: bold; text-align: right;}
+		h1.center {text-align: center;}
+		div.center {text-align: center;}
+		div.footer {position: fixed; bottom: 0; width: 100%; height: 44px; line-height: 44px; text-align: center; background-color: #888888;}a {display: inline-block; margin: 0 40px; text-decoration: none; color: #ffffff; text-transform: uppercase; font-size: 12px;}
+		/*body {background-image: url("./Calculon.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;}
+		img {filter: alpha(opacity=40);}*/
+		body {background-color: #cce6ff; color:#004d99;}
+		/*body {background-color: #eeeeee;}*/
+	</style>
+</head>
+
+<body>
+	<!-- <div class="center"><i class="fa fa-linux fa-5x"></i></div><h1 class="center">zoidberg</h1> -->
+
+<!-- <table class="center"> -->
+<table>
+	<tr><td><div class="center"><i class="fa fa-linux fa-5x"></i></div></td>
+		<!-- <tr><td><div class="center"><img src="./Calculon.jpg" width="100"></div></td> -->
+		<td><h1 class="center">zoidberg</h1></td></tr>
+	<tr><td>
+	<div id="canvas-holder" style="width:200px">
+		<canvas id="chart-area" />
+	</div>
+
+	<div style="width:200px">
+		<canvas id="line-chart" />
+	</div>
+</td>
+<td>
+<table class="center">
+	<tr><td class="bold">Linux</td><td id="undefined">Raspbian GNU/Linux 8 (jessie)(4.4.8-v7+)</td></tr>
+	<tr><td class="bold">CPU</td><td id="undefined">ARMv7 Processor rev 4 (v7l)</td></tr>
+	<!-- <tr><td class="bold">Arch</td><td id="undefined">arm</td></tr> -->
+	<!-- <tr><td class="bold">Load</td><td id="load">0.06</td></tr> -->
+	<tr><td class="bold">Memory</td><td id="mem">289 MB / 862 MB Used</td></tr><tr><td class="bold">Uptime</td><td id="up">0 days 11 hrs 51 mins</td></tr>
+	<tr><td class="bold">MAC</td><td id="undefined">b8:27:eb:f9:fc:d5</td></tr>
+	<tr><td class="bold">IPv4</td><td id="undefined">192.168.1.149</td></tr>
+	<tr><td class="bold">IPv6</td><td id="undefined">fe80::8fa5:b9cc:e83b:7687</td></tr>
+	<tr><td class="bold">Storage</td><td id="undefined"></td></tr><tr><td class="bold">/:</td><td id="undefined">27G of 30G free, 6% used</td></tr><tr><td class="bold">/boot:</td><td id="undefined">40M of 60M free, 35% used</td></tr></table>
+</td></table>
+	<script>
+
+	var ctx = document.getElementById('chart-area').getContext('2d');
+	// var dark = "#999999"
+	// var light = "#cccccc"
+
+	var dark = "#004d99"
+	var light = "#99ccff"
+var config = {
+    type: 'doughnut',
+    data: {
+        datasets: [{
+            data: [20,80],
+            backgroundColor: [dark,light],
+        },
+			{
+            data: [5,95],
+            backgroundColor: [dark,light],
+        },{
+            data: [80,20],
+            backgroundColor: [dark,light],
+        },
+			{
+            data: [55,45],
+            backgroundColor: [dark,light],
+        }
+	],
+        labels: ["Free","Used"]
+    },
+    options: {
+		// responsive: true,
+		tooltips: {enabled: false},
+		legend: {display: false}
+    }
+};
+
+var myDoughnut = new Chart(ctx, config);
+
+
+// 	var data = {
+// 	labels: [
+// 		"Used",
+// 		"Free"
+// 	],
+// 	datasets: [
+// 		{
+// 			data: [3, 27],
+// 			backgroundColor: [
+// 				"#FF6384",
+// 				"#36A2EB",
+// 			],
+// 			// hoverBackgroundColor: [
+// 			//	 "#FF6384",
+// 			//	 "#36A2EB",
+// 			// ]
+// 		}]
+// };
+// // Chart.defaults.global.legend
+// var myDoughnutChart = new Chart(ctx, {
+// 	type: 'doughnut',
+// 	data: data,
+// 	 options:{ legend: {display: false} }
+// 	// options: options
+// });
+
+var linedata = {
+	// labels: ["January", "February", "March", "April", "May", "June", "July"],
+	// labels: ["January", "February", "March"],
+	labels: [65, 59, 80, 81, 56, 55, 40,99,23,45,66,78,32,11,23,12,11,2,5,6],
+	datasets: [
+		{
+			label: "My First dataset",
+			fill: true,
+			lineTension: 0.1,
+			backgroundColor: light, //"rgba(75,192,192,0.4)",
+			borderColor: dark, //"rgba(75,192,192,1)",
+			borderCapStyle: 'butt',
+			borderDash: [],
+			borderDashOffset: 0.0,
+			borderJoinStyle: 'miter',
+			pointBorderColor: dark, //"rgba(75,192,192,1)",
+			pointBackgroundColor: "#fff",
+			pointBorderWidth: 1,
+			pointHoverRadius: 5,
+			// pointHoverBackgroundColor: "rgba(75,192,192,1)",
+			// pointHoverBorderColor: "rgba(220,220,220,1)",
+			pointHoverBorderWidth: 2,
+			pointRadius: 1,
+			pointHitRadius: 10,
+			data: [65, 59, 80, 81, 56, 55, 40,99,23,45,66,78,32,11,23,12,11,2,5,6],
+		}
+	]
+};
+
+var ctxline = document.getElementById('line-chart').getContext('2d');
+
+var myLineChart = new Chart(ctxline, {
+	type: 'line',
+	data: linedata,
+	//  options:{ legend: {display: false}, xAxes: {display: false } }
+ 	 options: {
+		 tooltips: {enabled: false},
+		 legend: {display: false},
+		 scales:
+		 {
+			 xAxes: [{display: false }],
+			//  yAxes: [{beginAtZero: true, min: 150 }]
+			 yAxes: [{
+				//  display: false,
+				 ticks: {beginAtZero: true, max: 150, fontSize:0 }
+			 }]
+		 }
+	 }
+});
+	</script>
+</body>
+
+</html>
