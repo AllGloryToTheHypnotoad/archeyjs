@@ -33,7 +33,8 @@ Command line:
 The `--no-static` option updates the web page in real-time with info that changes (i.e.,
 load, memory, and time stamp). This uses `socket.io` with seems to use a lot of resources
 to talk between the node server and the web page. The default is just a static page to
-reduce resource requirements.
+reduce resource requirements. **Thinking of removing real-time and just sticking with static 
+webpages.**
 
 The `--port` is the port used by the server. The default is `8080`.
 
@@ -119,6 +120,7 @@ find the current status of the server.
 
 | Version | Date       | Comments |
 |---------|------------|----------|
+| 1.1.0   | 2016/6/9   | Using font-linux now, icons for each OS instead of generic linux tux icon  |
 | 1.0.9   | 2016/4/30  | Minor fixes  |
 | 1.0.8   | 2016/4/20  | Cleaned up the storage reading |
 | 1.0.7   | 2016/1/8   | Minor fixes |
