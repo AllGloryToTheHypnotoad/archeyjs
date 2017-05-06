@@ -1,0 +1,119 @@
+/*
+  Icon Font: font-linux
+*/
+
+@font-face {
+  font-family: "font-linux";
+  src: url("./font-linux.eot");
+  src: url("./font-linux.eot?#iefix") format("embedded-opentype"),
+       url("./font-linux.woff") format("woff"),
+       url("./font-linux.ttf") format("truetype"),
+       url("./font-linux.svg#font-linux") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: "font-linux";
+    src: url("./font-linux.svg#font-linux") format("svg");
+  }
+}
+
+.fl {
+}
+
+
+
+.fl-12 { font-size: 12px; }
+
+.fl-14 { font-size: 14px; }
+
+.fl-16 { font-size: 16px; }
+
+.fl-18 { font-size: 18px; }
+
+.fl-21 { font-size: 21px; }
+
+.fl-24 { font-size: 24px; }
+
+.fl-36 { font-size: 36px; }
+
+.fl-48 { font-size: 48px; }
+
+.fl-60 { font-size: 60px; }
+
+.fl-72 { font-size: 72px; }
+
+
+[data-icon]:before { content: attr(data-icon); }
+
+[data-icon]:before,
+.fl-apple:before,
+.fl-archlinux:before,
+.fl-cassandra:before,
+.fl-centos:before,
+.fl-debian:before,
+.fl-docker:before,
+.fl-fedora:before,
+.fl-freebsd:before,
+.fl-gentoo:before,
+.fl-git:before,
+.fl-github:before,
+.fl-jsfiddle:before,
+.fl-linuxmint:before,
+.fl-mongodb:before,
+.fl-nodejs:before,
+.fl-npm:before,
+.fl-opensuse:before,
+.fl-python:before,
+.fl-qrcode:before,
+.fl-raspberrypi:before,
+.fl-redhat:before,
+.fl-slackware:before,
+.fl-stackoverflow:before,
+.fl-tux:before,
+.fl-ubuntu:before,
+.fl-ubuntu-inverse:before,
+.fl-wireless:before {
+  display: inline-block;
+  font-family: "font-linux";
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  line-height: 1;
+  text-decoration: inherit;
+  text-rendering: optimizeLegibility;
+  text-transform: none;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+}
+
+.fl-apple:before { content: "\f116"; }
+.fl-archlinux:before { content: "\f100"; }
+.fl-cassandra:before { content: "\f117"; }
+.fl-centos:before { content: "\f101"; }
+.fl-debian:before { content: "\f102"; }
+.fl-docker:before { content: "\f118"; }
+.fl-fedora:before { content: "\f103"; }
+.fl-freebsd:before { content: "\f10f"; }
+.fl-gentoo:before { content: "\f111"; }
+.fl-git:before { content: "\f119"; }
+.fl-github:before { content: "\f11a"; }
+.fl-jsfiddle:before { content: "\f11c"; }
+.fl-linuxmint:before { content: "\f105"; }
+.fl-mongodb:before { content: "\f11d"; }
+.fl-nodejs:before { content: "\f125"; }
+.fl-npm:before { content: "\f11f"; }
+.fl-opensuse:before { content: "\f109"; }
+.fl-python:before { content: "\f120"; }
+.fl-qrcode:before { content: "\f121"; }
+.fl-raspberrypi:before { content: "\f122"; }
+.fl-redhat:before { content: "\f10a"; }
+.fl-slackware:before { content: "\f10b"; }
+.fl-stackoverflow:before { content: "\f126"; }
+.fl-tux:before { content: "\f128"; }
+.fl-ubuntu:before { content: "\f10d"; }
+.fl-ubuntu-inverse:before { content: "\f10e"; }
+.fl-wireless:before { content: "\f123"; }

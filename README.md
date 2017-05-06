@@ -3,7 +3,6 @@
 [![npm](https://img.shields.io/npm/v/archeyjs.svg)](https://github.com/walchko/archeyjs)
 [![npm](https://img.shields.io/npm/l/archeyjs.svg)](https://github.com/walchko/archeyjs)
 [![Travis](https://img.shields.io/travis/walchko/archeyjs.svg)](https://travis-ci.org/walchko/archeyjs)
-[![bitHound Code](https://www.bithound.io/github/walchko/archeyjs/badges/code.svg)](https://www.bithound.io/github/walchko/archeyjs)
 
 [![NPM](https://nodei.co/npm/archeyjs.png)](https://nodei.co/npm/archeyjs/)
 
@@ -11,8 +10,6 @@ This is a simple archey like clone, which gives system info in a web browser.
 
 Why? I have several headless Raspberry Pi's doing things and I wanted a simple cross
 platform way to see what they are up too.
-
-**still under development**
 
 ![](./pics/archeyjs.png)
 
@@ -29,13 +26,6 @@ Command line:
       -h, --help         output usage information
       -V, --version      output the version number
       -p, --port <port>  Http server port number, default: 8080
-      -r, --no-static    Do real-time webpage updates
-
-The `--no-static` option updates the web page in real-time with info that changes (i.e.,
-load, memory, and time stamp). This uses `socket.io` with seems to use a lot of resources
-to talk between the node server and the web page. The default is just a static page to
-reduce resource requirements. **Thinking of removing real-time and just sticking with static
-webpages.**
 
 The `--port` is the port used by the server. The default is `8080`.
 
@@ -60,22 +50,15 @@ Which gives:
     "hostname":"Tardis.local",
     "network":{
       "IPv6":{
-        "address":"fe80::fa1e:dfff:feea:6820",
-        "mac":"f8:1e:df:ea:68:20"
+        "address":"fe00::fa1f:dfff:fe9a:6820",
+        "mac":"f8:1e:df:ee:68:2f"
         },
       "IPv4":{
         "address":"192.168.1.3",
-        "mac":"f8:1e:df:ea:68:20"
+        "mac":"f8:1e:df:ee:68:2f"
         }
     },
     "timestamp":"2015-11-25T07:05:39.713Z"}
-
-There is also a QR code icon in at the bottom right, which will create a QR code of the
-hostname, IPv4, IPv6, and MAC address. You can also get to it by:
-
-    http://localhost:8080/qr
-
-![](./pics/qr.png)
 
 ## Curl
 
@@ -121,6 +104,7 @@ find the current status of the server.
 
 | Version | Date       | Comments |
 |---------|------------|----------|
+| 1.5.0   | 2017/05/6  | Removed qr and realtime options and added font-linux |
 | 1.3.0   | 2016/10/13 | Updates |
 | 1.1.0   | 2016/6/9   | Using font-linux now, icons for each OS instead of generic linux tux icon  |
 | 1.0.9   | 2016/4/30  | Minor fixes  |
