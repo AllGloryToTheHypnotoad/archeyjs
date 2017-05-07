@@ -13,6 +13,8 @@ platform way to see what they are up too.
 
 ![](./pics/apple.png)
 
+![](./pics/raspbian.png)
+
 ## Usage
 
 Command line:
