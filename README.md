@@ -11,7 +11,7 @@ This is a simple archey like clone, which gives system info in a web browser.
 Why? I have several headless Raspberry Pi's doing things and I wanted a simple cross
 platform way to see what they are up too.
 
-![](./pics/archeyjs.png)
+![](./pics/apple.png)
 
 ## Usage
 
