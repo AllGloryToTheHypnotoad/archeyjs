@@ -102,6 +102,14 @@ Then do:
 Now you can use `sudo systemctl start|stop|status archeyjs.service` to start, stop, or
 find the current status of the server.
 
+# To Do
+
+- [ ] Script to automatically install service for Debian Jessie
+- [ ] For Raspbian, incorperate more info: temp (C or F), version pi, bluetooth, wifi, memory split
+- [ ] Cleaner break between gathering info and hosting web page
+- [ ] Break data gathering out into own npm library
+
+
 # Change Log
 
 | Version | Date       | Comments |
@@ -119,3 +127,25 @@ find the current status of the server.
 | 1.0.2   | 2015/11/25 | CLI fixes |
 | 1.0.1   | 2015/11/25 | Small linux fixes |
 | 1.0.0   | 2015/11/24 | Initiated |
+
+# MIT License
+
+**Copyright (c) 2015 Kevin Walchko**
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
