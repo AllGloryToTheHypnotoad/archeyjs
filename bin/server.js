@@ -9,6 +9,7 @@ var fs = require('fs');
 var path = require('path');
 var sysinfo = require('../lib/sysinfo.js');   // get system info
 var makePage = require('../lib/page.js');     // create web page
+var tech = require('techno-font');           // web font
 
 // grab info from npm package
 var pck = require('../package.json');
@@ -78,12 +79,11 @@ function getFile(file, res) {
 
 // Simple REST server
 var server = http.createServer(function(req, res){
-	var path = req.url;
-	// debug('path: ' + path);
+	// debug('req.url: ' + req.url);
 	// debug('pwd ' + __dirname);
 
 	// return json
-	if (path == '/json'){
+	if (req.url == '/json'){
 		var info = sysinfo.sysinfo();
 
 		if (req.method == 'GET') {
@@ -93,7 +93,7 @@ var server = http.createServer(function(req, res){
 		}
 	}
 	// return status web page
-	else if (path == '/'){
+	else if (req.url == '/'){
 		var info = sysinfo.sysinfo();
 
 		if (req.method == 'GET') {
@@ -102,19 +102,27 @@ var server = http.createServer(function(req, res){
 			res.end();
 		}
 	}
+
 	// font
-	else if (path == '/font-linux.css'){
-		// debug(' >> font-linux ... yeah');
-		getFile(path, res);
+	else if (req.url == '/techno-font.css'){
+		res.writeHead(200, { 'Content-Type': 'text/css' });
+		var content = tech.getCSS();
+		// console.log(content);
+		res.end(content.toString(), 'utf-8');
 	}
 
-	else if (path == '/font-linux.woff' || path == '/font-linux.ttf') {
-		getFile(path, res);
+	else if (req.url == '/techno-font.woff' || req.url == '/techno-font.ttf') {
+		var extname = String(path.extname(req.url)).toLowerCase();
+		var contentType = mimeTypes[extname];
+		res.writeHead(200, { 'Content-Type': contentType });
+		var content = tech.getWOFF();
+		// console.log(content);
+		res.end(content, 'binary');
 	}
 
 	else {
 		// force users to / or /json
-		debug("Wrong path " + path);
+		debug("Wrong path " + req.url);
 		debug("Wrong path: use http://localhost:" + program.port + " or http:localhost:" + program.port + "/json\n");
 		// res.writeHead(404, "Not Found", {'Content-Type': 'text/html'});
 		// res.write("Wrong path: use http://localhost:" + program.port + " or http:localhost:" + program.port + "/json\n");

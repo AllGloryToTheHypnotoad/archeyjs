@@ -114,6 +114,7 @@ find the current status of the server.
 
 | Version | Date       | Comments |
 |---------|------------|----------|
+| 1.6.0   | 2017/06/6  | Added techno-font |
 | 1.5.0   | 2017/05/6  | Removed qr and realtime options and added font-linux |
 | 1.3.0   | 2016/10/13 | Updates |
 | 1.1.0   | 2016/6/9   | Using font-linux now, icons for each OS instead of generic linux tux icon  |

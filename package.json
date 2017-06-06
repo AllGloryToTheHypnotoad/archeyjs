@@ -1,6 +1,6 @@
 {
 	"name": "archeyjs",
-	"version": "1.5.1",
+	"version": "1.6.0",
 	"description": "JS version of archey. Allows headless systems to report status via web browser or json response.",
 	"bin": {
 		"archeyjs": "./bin/server.js"
@@ -19,9 +19,11 @@
 		"url": "https://github.com/walchko/archeyjs"
 	},
 	"dependencies": {
-		"debug":"*",
-		"commander":"*",
-		"macos-release":"*",
-		"http":"*"
+		"debug": "*",
+		"commander": "*",
+		"macos-release": "*",
+		"http": "*",
+		"techno-font": "*",
+		"purecss": "*"
 	}
 }
