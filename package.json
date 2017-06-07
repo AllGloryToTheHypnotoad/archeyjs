@@ -1,29 +1,35 @@
 {
 	"name": "archeyjs",
-	"version": "1.6.0",
+	"version": "1.6.1",
 	"description": "JS version of archey. Allows headless systems to report status via web browser or json response.",
 	"bin": {
 		"archeyjs": "./bin/server.js"
 	},
 	"main": "./bin/server.js",
 	"scripts": {
-		"debug": "DEBUG=* node ./bin/server.js",
+		"debug": "node ./bin/server.js",
 		"test": "echo \"Error: no test specified\" && exit 0",
 		"start": "node ./bin/server.js"
 	},
 	"author": "Kevin J. Walchko <kevin.walchko@outlook.com>",
-	"keywords": ["archey","system info", "os info", "info"],
+	"keywords": [
+		"archey",
+		"system info",
+		"os info",
+		"info"
+	],
 	"license": "MIT",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/walchko/archeyjs"
 	},
 	"dependencies": {
-		"debug": "*",
+		"cc-icons": "^1.0.0",
 		"commander": "*",
+		"font-mfizz": "^1.2.2",
 		"macos-release": "*",
-		"http": "*",
-		"techno-font": "*",
-		"purecss": "*"
+		"purecss": "*",
+		"semver": "^5.3.0",
+		"techno-font": "*"
 	}
 }
