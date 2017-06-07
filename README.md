@@ -79,6 +79,9 @@ Which gives:
 
 ## Linux (Raspbian - Jessie) Setup
 
+There is now a script (`install-archeyjs.sh`) that does this, but the manual 
+process is basically:
+
 Create a file `/etc/systemd/system/archeyjs.service`:
 
     [Service]
@@ -104,8 +107,13 @@ find the current status of the server.
 
 # To Do
 
-- [ ] Script to automatically install service for Debian Jessie
+- [x] Script to automatically install service for Debian Jessie
 - [ ] For Raspbian, incorperate more info: temp (C or F), version pi, bluetooth, wifi, memory split
+- [ ] update footer to include
+    - node, archeyjs, npm versions
+    - MIT license, copyright, github repo
+    - page creation date and html5, nodejs, css3 logos
+    - make grey background like in my other footer
 - [ ] Cleaner break between gathering info and hosting web page
 - [ ] Break data gathering out into own npm library
 
