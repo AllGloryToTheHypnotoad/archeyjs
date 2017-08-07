@@ -2,7 +2,7 @@
 
 [![npm](https://img.shields.io/npm/v/archeyjs.svg)](https://github.com/walchko/archeyjs)
 [![npm](https://img.shields.io/npm/l/archeyjs.svg)](https://github.com/walchko/archeyjs)
-[![Travis](https://img.shields.io/travis/walchko/archeyjs.svg)](https://travis-ci.org/walchko/archeyjs)
+[![Travis](https://img.shields.io/travis/AllGloryToTheHypnotoad/archeyjs.svg)](https://travis-ci.org/walchko/archeyjs)
 
 [![NPM](https://nodei.co/npm/archeyjs.png)](https://nodei.co/npm/archeyjs/)
 
