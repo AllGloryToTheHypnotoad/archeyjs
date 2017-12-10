@@ -7,7 +7,7 @@ var path = require('path');
 var sysinfo = require('../lib/sysinfo.js');   // get system info
 var makePage = require('../lib/page.js');     // create web page
 var tech = require('techno-font');            // web font
-var localIp = require('ip');                  // get local ip address
+// var localIp = require('ip');                  // get local ip address
 var platform = require('os').platform();
 
 // grab info from npm package
@@ -36,8 +36,6 @@ program
 	.usage(pck.name + ' [options]')
 	.option('-p, --port <port>','Http server port number, default: 8080', 8080)
 	.parse(process.argv);
-
-var localIpAddress = localIp.address();
 
 function returnError(url, res){
 	console.log("Wrong path " + url);
@@ -89,9 +87,10 @@ function getFileSync(file) {
 }
 
 // read in the statics
+// var initStatics = true;
 var html404 = getFileSync("404.html").toString();
 var stylecss = getFileSync("style.css").toString();
-var htmlcmd = getFileSync("command.html").toString();
+var htmlcmdraw = getFileSync("command.html").toString();
 var htmlbye = getFileSync("shutdown.html").toString();
 var grim = getFileSync("grim.png");
 
@@ -99,6 +98,16 @@ var grim = getFileSync("grim.png");
 var server = http.createServer(function(req, res){
 	console.log('req.url: ' + req.url);
 	// debug('pwd ' + __dirname);
+
+	// if (initStatics) {
+	// 	// update ip address
+	// 	localIpAddress = localIp.address();
+	// 	// read in page so we can edit it
+	// 	htmlcmd = getFileSync("command.html").toString();
+	// 	// fix ip address on links
+	// 	htmlcmd = htmlcmd.replace(/localhost/g, localIpAddress);
+	// 	// initStatics = false;
+	// }
 
 	// return json
 	if (req.url === '/json'){
@@ -113,6 +122,12 @@ var server = http.createServer(function(req, res){
 	// return status web page
 	else if (req.url === '/'){
 		var info = sysinfo.sysinfo();
+		console.log(info);
+
+		// update ip address on links incase they changed
+		// localIpAddress = localIp.address();
+		var ip_addr = info['network']['IPv4']['address']
+		htmlcmd = htmlcmdraw.replace(/localhost/g, ip_addr);
 
 		if (req.method === 'GET') {
 			res.writeHead(200,{'Content-Type': 'text/html'});
@@ -221,5 +236,5 @@ server.on('error', function(e) {
 // start web server
 server.listen(program.port);
 console.log(pck.name + " started on port " + program.port);
-console.log('Visit http://' + localIpAddress + ':' + program.port + ' to view your status');
+// console.log('Visit http://' + localIpAddress + ':' + program.port + ' to view your status');
 console.log('');
