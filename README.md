@@ -31,9 +31,21 @@ Command line:
 
 The `--port` is the port used by the server. The default is `8080`.
 
-You can connect with a web browser at:
+You can connect with a web browser using the default port 8080 at:
 
     http://localhost:8080
+
+On Raspbian, you can issue the shutdown command by:
+
+    http://localhost:8080/shutdown
+
+Note, this works because Raspbian doesn't ask for a `sudo` password from user
+`pi`. Therefore, this will probably not work on any other os.
+
+You can also see if the system is alive by getting a 200 response (no html):
+
+    http://localhost:8080/alive
+
 
 Or get a json response back by:
 
@@ -52,12 +64,12 @@ Which gives:
     "hostname":"Tardis.local",
     "network":{
       "IPv6":{
-        "address":"fe00::fa1f:dfff:fe9a:6820",
+        "address":"fe00::fa1f:dfef:fe9a:6820",
         "mac":"f8:1e:df:ee:68:2f"
         },
       "IPv4":{
         "address":"192.168.1.3",
-        "mac":"f8:1e:df:ee:68:2f"
+        "mac":"f8:1e:df:ee:11:2f"
         }
     },
     "timestamp":"2015-11-25T07:05:39.713Z"}
@@ -77,9 +89,9 @@ Which gives:
     npm install
     npm link
 
-## Linux (Raspbian - Jessie) Setup
+## Linux (Raspbian - Stretch) Setup
 
-There is now a script (`install-archeyjs.sh`) that does this, but the manual 
+There is now a script (`install-archeyjs.sh`) that does this, but the manual
 process is basically:
 
 Create a file `/etc/systemd/system/archeyjs.service`:
@@ -108,12 +120,7 @@ find the current status of the server.
 # To Do
 
 - [x] Script to automatically install service for Debian Jessie
-- [ ] For Raspbian, incorperate more info: temp (C or F), version pi, bluetooth, wifi, memory split
-- [ ] update footer to include
-    - node, archeyjs, npm versions
-    - MIT license, copyright, github repo
-    - page creation date and html5, nodejs, css3 logos
-    - make grey background like in my other footer
+- [ ] For Raspbian, incorporate more info: temp (C or F), version pi, bluetooth, wifi, memory split
 - [ ] Cleaner break between gathering info and hosting web page
 - [ ] Break data gathering out into own npm library
 
@@ -122,6 +129,7 @@ find the current status of the server.
 
 | Version | Date       | Comments |
 |---------|------------|----------|
+| 1.7.0   | 2017/12/9  | Added shutdown/reboot commands and general clean up |
 | 1.6.0   | 2017/06/6  | Added techno-font |
 | 1.5.0   | 2017/05/6  | Removed qr and realtime options and added font-linux |
 | 1.3.0   | 2016/10/13 | Updates |

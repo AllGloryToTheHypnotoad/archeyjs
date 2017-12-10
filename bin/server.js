@@ -1,15 +1,14 @@
 #!/usr/bin/env node
 
-// var debug = require('debug')('kevin:mon'); // debugging
-//var chalk = require('chalk');            // colors
-var program = require('commander');        // CLI access
-//var os = require('os');                    // OS access
-var http = require('http');                // http-server
+var program = require('commander');          // CLI access
+var http = require('http');                  // http-server
 var fs = require('fs');
 var path = require('path');
 var sysinfo = require('../lib/sysinfo.js');   // get system info
 var makePage = require('../lib/page.js');     // create web page
-var tech = require('techno-font');           // web font
+var tech = require('techno-font');            // web font
+var localIp = require('ip');                  // get local ip address
+var platform = require('os').platform();
 
 // grab info from npm package
 var pck = require('../package.json');
@@ -31,26 +30,6 @@ var mimeTypes = {
 	'.svg': 'application/image/svg+xml'
 };
 
-var html404 = '\
-<!DOCTYPE html>\n\
-<html>\n\
-	<head>\n\
-		<style>\n\
-			p {\n\
-				text-align: center;\n\
-				font-size: 100px;\n\
-				color: #888;\n\
-			}\n\
-			body {\n\
-				background-color: #444;\n\
-			}\n\
-			</style>\n\
-	</head>\n\
-	<body>\n\
-		<p class="error">404</p>\n\
-	</body>\n\
-</html>'
-
 program
 	.version(pck.version)
 	.description(pck.description)
@@ -58,48 +37,63 @@ program
 	.option('-p, --port <port>','Http server port number, default: 8080', 8080)
 	.parse(process.argv);
 
-console.log('archeyjs ready on port: '+ program.port);
+var localIpAddress = localIp.address();
 
-// function returnStaticFile(file, res) {
-function getFile(file, res) {
-	// https://nodejs.org/docs/latest/api/path.html#path_path_resolve_paths
-	var filePath = path.resolve(__dirname, './static' + file);
-	var extname = String(path.extname(filePath)).toLowerCase();
-	var contentType = mimeTypes[extname];
-
-	// debug('>> Looking for ' + extname + ' at ' + filePath);
-
-	fs.readFile(filePath, function(error, content){
-		if (error){
-			console.log('Error:' + error);
-			// if(error.code == 'ENOENT'){
-			// 	fs.readFile('./404.html', function(error, content) {
-			// 		res.writeHead(200, { 'Content-Type': 'text/html' });
-			// 		res.end(content, 'utf-8');
-			// 	});
-			// }
-			if(error.code == 'ENOENT'){
-				console.log(' >> File not found << ');
-			}
-		}
-		// else if (filePath == '/404.html'){
-		// 	res.writeHead(404, { 'Content-Type': 'text/html' });
-		// 	res.end(content.toString(), 'utf-8');
-		// }
-		else {
-			res.writeHead(200, { 'Content-Type': contentType });
-			if (extname == '.css' || extname == '.html'){
-				// debug(content.toString());
-				// res.end(content.toString(), 'utf-8');
-				res.end(content.toString());
-			}
-			else {
-				// debug(content);
-				res.end(content, 'binary');
-			}
-		}
-	});
+function returnError(url, res){
+	console.log("Wrong path " + url);
+	res.writeHead(404, { 'Content-Type': 'text/html' });
+	res.end(html404, 'utf-8');
 }
+
+function returnFont(file, res) {
+		// move to techno-font??
+		var extname = String(path.extname(file)).toLowerCase();
+		// var contentType = mimeTypes[extname];
+		// console.log(extname);
+		// console.log(contentType);
+		fmt = 'binary';
+
+		var content;
+		if (extname === '.ttf') {
+			content = tech.getTTF();
+		}
+		else if (extname === '.woff'){
+			content = tech.getWOFF();
+		}
+		else if (extname === '.css'){
+			fmt = 'utf-8';
+			content = tech.getCSS();
+		}
+		else if (extname === '.svg'){
+			fmt = 'utf-8';
+			content = tech.getSVG();
+		}
+		else {
+			console.log('[ERROR] font not found: ' + file);
+			returnError(file, res);
+			return;
+		}
+
+		var contentType = mimeTypes[extname];
+		res.writeHead(200, { 'Content-Type': contentType });
+		res.end(content, fmt);
+}
+
+function getFileSync(file) {
+	// Read in static files
+	// https://nodejs.org/docs/latest/api/path.html#path_path_resolve_paths
+	var filePath = path.resolve(__dirname, './static/' + file);
+	// var extname = String(path.extname(filePath)).toLowerCase();
+	var ret = fs.readFileSync(filePath);
+	return ret;
+}
+
+// read in the statics
+var html404 = getFileSync("404.html").toString();
+var stylecss = getFileSync("style.css").toString();
+var htmlcmd = getFileSync("command.html").toString();
+var htmlbye = getFileSync("shutdown.html").toString();
+var grim = getFileSync("grim.png");
 
 // Simple REST server
 var server = http.createServer(function(req, res){
@@ -127,57 +121,105 @@ var server = http.createServer(function(req, res){
 		}
 	}
 
-	// font
-	else if (req.url === '/techno-font.css'){
+	// page css
+	else if (req.url === '/style.css'){
 		res.writeHead(200, { 'Content-Type': 'text/css' });
-		var content = tech.getCSS();
-		console.log(content.toString());
-		res.end(content.toString(), 'utf-8');
+		res.end(stylecss, 'utf-8');
 	}
 
-	else if (req.url === '/techno-font.woff') {
-		// var extname = String(path.extname(req.url)).toLowerCase();
-		// var contentType = mimeTypes[extname];
-		res.writeHead(200, { 'Content-Type': 'application/font-woff' });
-		var content = tech.getWOFF();
-		// console.log(content);
-		res.end(content, 'binary');
+	else if (req.url === '/grim.png'){
+		res.writeHead(200, { 'Content-Type': 'image/png' });
+		res.end(grim);
 	}
 
-	else if (req.url === '/techno-font.ttf') {
-		res.writeHead(200, { 'Content-Type': 'application/font-ttf' });
-		var content = tech.getTTF();
-		// console.log(content);
-		res.end(content, 'binary');
+	else if (req.url === '/command'){
+		res.writeHead(200, { 'Content-Type': 'text/html' });
+		res.end(htmlcmd, 'utf-8');
 	}
 
-	else if (req.url === '/techno-font.eot') {
-		res.writeHead(200, { 'Content-Type': 'application/vnd.ms-fontobject' });
-		var content = tech.getEOT();
-		// console.log(content);
-		res.end(content, 'binary');
+	else if (req.url === "/shutdown"){
+		res.writeHead(200, { 'Content-Type': 'text/html' });
+		res.end(htmlbye, 'utf-8');
+
+		console.log("Shutting down system now");
+
+		var exec = require('child_process').exec;
+		var child;
+
+		if (platform === 'darwin'){
+			this.command = "ls ~";  // testing
+		}
+		else {
+			this.command = "sudo shutdown now";
+		}
+
+		child = exec(this.command, function (error, stdout, stderr){
+			if(error !== undefined){
+				console.log(stdout);
+			}
+			else {
+				console.log("ERROR:")
+				console.log(error);
+				console.log(stderr);
+			}
+		});
+		res.end();
 	}
 
-	else if (req.url === '/techno-font.svg') {
-		res.writeHead(200, { 'Content-Type': 'application/image/svg+xml' });
-		var content = tech.getEOT();
-		// console.log(content);
-		res.end(content.toString(), 'utf-8');
+	else if (req.url === "/reboot"){
+		res.writeHead(200, { 'Content-Type': 'text/html' });
+		res.end(htmlbye, 'utf-8');
+
+		console.log("Rebooting system now");
+
+		var exec = require('child_process').exec;
+		var child;
+
+		if (platform === 'darwin'){
+			this.command = "ls ~";  // testing
+		}
+		else {
+			this.command = "sudo reboot now";
+		}
+
+		child = exec(this.command, function (error, stdout, stderr){
+			if(error !== undefined){
+				console.log(stdout);
+			}
+			else {
+				console.log("ERROR:")
+				console.log(error);
+				console.log(stderr);
+			}
+		});
+		res.end();
+	}
+
+	else if (req.url === "/alive") {
+		res.statusCode = 200;
+		res.end();
 	}
 
 	else {
-		// force users to / or /json
-		console.log("Wrong path " + req.url);
-		// debug("Wrong path: use http://localhost:" + program.port + " or http:localhost:" + program.port + "/json\n");
-		// res.writeHead(404, "Not Found", {'Content-Type': 'text/html'});
-		// res.write("Wrong path: use http://localhost:" + program.port + " or http:localhost:" + program.port + "/json\n");
-		// res.end();
-		// getFile('/404.html', res);
-		res.writeHead(404, { 'Content-Type': 'text/html' });
-		res.end(html404, 'utf-8');
-
+		// assume it is a font ... if not, 404 will be returned
+		returnFont(req.url, res);
 	}
+});
+
+// catch errors
+server.on('error', function(e) {
+    if (e.code == 'EADDRINUSE') {
+        console.log('port already in use');
+    } else if (e.code == "EACCES") {
+        console.log("Illegal port");
+    } else {
+        console.log("Unknown error");
+    }
+    process.exit(1);
 });
 
 // start web server
 server.listen(program.port);
+console.log(pck.name + " started on port " + program.port);
+console.log('Visit http://' + localIpAddress + ':' + program.port + ' to view your status');
+console.log('');
