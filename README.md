@@ -13,8 +13,6 @@ platform way to see what they are up too.
 
 ![](./pics/apple.png)
 
-![](./pics/raspbian.png)
-
 ## Usage
 
 Command line:
@@ -31,16 +29,26 @@ Command line:
 
 The `--port` is the port used by the server. The default is `8080`.
 
+## Webpage
+
+![](./pics/raspbian.png)
+
 You can connect with a web browser using the default port 8080 at:
 
     http://localhost:8080
 
-On Raspbian, you can issue the shutdown command by:
+
+![](./pics/commands.png)
+
+On Raspbian, you can issue the shutdown or reboot command by:
 
     http://localhost:8080/shutdown
+    http://localhost:8080/reboot
 
 Note, this works because Raspbian doesn't ask for a `sudo` password from user
 `pi`. Therefore, this will probably not work on any other os.
+
+## Server Responses
 
 You can also see if the system is alive by getting a 200 response (no html):
 
