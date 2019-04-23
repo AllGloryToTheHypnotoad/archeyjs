@@ -125,6 +125,36 @@ Then do:
 Now you can use `sudo systemctl start|stop|status archeyjs.service` to start, stop, or
 find the current status of the server.
 
+# Finding Systems
+
+Using this, you could scan a network using `python` to find systems that respond to
+the json interfaces:
+
+```python
+#!/usr/bin/env python
+
+import time
+import requests
+
+
+for host in range(2,250):
+    addr = "http://10.0.1." + str(host) + ":8080/json"
+    try:
+        resp = requests.get(addr, timeout=0.2)
+        if resp.status_code == 200:
+            print(">> {} at {}".format(
+                resp.json()['hostname'],
+                resp.json()['network']['IPv4']['address'])
+            )
+        elif resp.status_code == 400:
+            print("** [400] at {}".format(addr))
+
+    except KeyboardInterrupt:
+        exit(0)
+    except:
+        print("** No RPi: {}".format(addr))
+```
+
 # To Do
 
 - [x] Script to automatically install service for Debian Jessie
