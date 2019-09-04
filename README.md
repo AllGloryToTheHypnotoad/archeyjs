@@ -157,21 +157,25 @@ for host in range(2,250):
 
 # To Do
 
-- [x] Script to automatically install service for Debian Jessie
-- [ ] For Raspbian, incorporate more info: temp (C or F), version pi, bluetooth, wifi, memory split
+- [ ] For Raspbian, incorporate more info:
+    - temp (C or F)
+    - version pi
+    - bluetooth
+    - wifi
+    - memory split
 - [ ] Cleaner break between gathering info and hosting web page
-- [ ] Break data gathering out into own npm library
-
+- [ ] Simple ping program to find any system with software installed
 
 # Change Log
 
 | Version | Date       | Comments |
 |---------|------------|----------|
-| 1.7.0   | 2017/12/9  | Added shutdown/reboot commands and general clean up |
-| 1.6.0   | 2017/06/6  | Added techno-font |
-| 1.5.0   | 2017/05/6  | Removed qr and realtime options and added font-linux |
+| 1.8.0   | 2019/09/03 | Focused on Raspberry Pi: eth0 and wlan0 reporting |
+| 1.7.0   | 2017/12/09 | Added shutdown/reboot commands and general clean up |
+| 1.6.0   | 2017/06/06 | Added techno-font |
+| 1.5.0   | 2017/05/06 | Removed qr and realtime options and added font-linux |
 | 1.3.0   | 2016/10/13 | Updates |
-| 1.1.0   | 2016/6/9   | Using font-linux now, icons for each OS instead of generic linux tux icon  |
+| 1.1.0   | 2016/06/09 | Using font-linux now, icons for each OS instead of generic linux tux icon  |
 | 1.0.9   | 2016/4/30  | Minor fixes  |
 | 1.0.8   | 2016/4/20  | Cleaned up the storage reading |
 | 1.0.7   | 2016/1/8   | Minor fixes |
