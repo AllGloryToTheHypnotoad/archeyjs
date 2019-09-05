@@ -25,6 +25,7 @@
     },
     "dependencies": {
         "commander": "*",
-        "techno-font": "*"
+        "techno-font": "*",
+        "node-fetch": "*"
     }
 }
