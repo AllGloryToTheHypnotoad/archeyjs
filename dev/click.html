@@ -1,9 +1,18 @@
-#!/usr/bin/env node
-const fetch = require('node-fetch');
+<!DOCTYPE html>
+<html>
+<body>
 
-function run(){
-    for(var i=69; i<71; i++){
-        var url = 'https://randomuser.me/api/?results=10';
+<button onclick="myFunction()">Click me</button>
+
+<p id="demo"></p>
+
+<p>A function </p>
+
+<script>
+function myFunction() {
+    var ans;
+    for(var i=70; i<71; i++){
+        // var url = 'https://randomuser.me/api/?results=10';
         fetch("http://10.0.1." + i.toString() + ":8080/json")
         .then((resp) => resp.json())
         .then(function(data) {
@@ -15,31 +24,15 @@ function run(){
                 ips += key + ": " + ifs[key]["address"] + "  ";
             }
             console.log(name + " " + ips);
+            document.getElementById("demo").innerHTML = resp;
         })
         .catch(function(error) {
             console.log(".");
+            document.getElementById("demo").innerHTML = "oops";
         });
     }
 }
+</script>
 
-module.exports = function(){
-    var template =  `
-    <!DOCTYPE html>
-    <html>
-    <body>
-
-    <button onclick="myFunction()">Click me</button>
-
-    <p id="demo"></p>
-
-    <p>A function </p>
-
-    <script>
-    function myFunction() {
-      document.getElementById("demo").innerHTML = "Hello World";
-    }
-    </script>
-
-    </body>
-    </html>`
-}
+</body>
+</html>

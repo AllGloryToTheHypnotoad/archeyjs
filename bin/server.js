@@ -116,7 +116,7 @@ var server = http.createServer(function(req, res){
         var n = info["network"];
         var keys = Object.keys(n);
         var key = keys[0];
-        var ip_addr = info["network"][key]["IPv4"]["address"]; // FIXME
+        var ip_addr = info["network"][key]["address"]; // FIXME
         htmlcmd = htmlcmdraw.replace(/localhost/g, ip_addr);
 
         if (req.method === "GET") {
