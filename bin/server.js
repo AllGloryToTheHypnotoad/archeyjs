@@ -6,11 +6,13 @@ var platform = require("os").platform();
 var http = require("http");                 // basic http-server
 var fs = require("fs");                     // access file system
 var path = require("path");                 // handle file paths correctly
+const os = require("os");
 // archeyjs libraries --------------------------------------------------------
 var ping = require("../lib/ping.js");       // ping other Pi's using archeyjs
 var sysinfo = require("../lib/sysinfo.js"); // get system info
 var makePage = require("../lib/page.js");   // create web page
 const ip = require("../lib/ip.js");   // get IP address
+const rpi = require("../lib/rpi-info.js");
 // NPM Packages --------------------------------------------------------------
 var tech = require("techno-font");          // web font
 var program = require("commander");         // CLI access
@@ -63,6 +65,13 @@ if (my_addr.length == 0) {
     console.log("** Couldn't find valide forwardable address");
     exit(1);
 }
+
+const alive_rep = {
+    'hostname': os.hostname(),
+    'network': ip.getIP(),
+    'rpi': rpi()
+};
+
 // console.log(my_addr);
 
 program
@@ -160,12 +169,12 @@ var server = http.createServer(function(req, res){
     }
 
     else if (req.url === "/ping"){
-        ping(function(ans){
-        console.log(ans);
-        res.writeHead(200, { "Content-Type": "text/html" });
-        var hp = htmlping.replace(/TABLE/g, ans);
-        console.log(hp);
-        res.end(hp, "utf-8");
+        ping("10.0.1", "8080", function(ans){
+            // console.log(ans);
+            res.writeHead(200, { "Content-Type": "text/html" });
+            var hp = htmlping.replace(/TABLE/g, ans);
+            // console.log(hp);
+            res.end(hp, "utf-8");
         });
     }
 
@@ -228,7 +237,9 @@ var server = http.createServer(function(req, res){
     }
 
     else if (req.url === "/alive") {
-        res.statusCode = 200;
+        // res.statusCode = 200;
+        res.writeHead(200,{"Content-Type": "text/json"});
+        res.write(JSON.stringify(alive_rep));
         res.end();
     }
 
