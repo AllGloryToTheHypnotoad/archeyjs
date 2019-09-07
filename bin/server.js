@@ -265,5 +265,5 @@ server.on("error", function(e) {
 // start web server
 server.listen(program.port);
 console.log(pck.name + " started on port " + program.port);
-console.log("Addresses: " + addresses["en0"]["address"]);
+console.log("Addresses: " + my_addr);
 console.log("");
