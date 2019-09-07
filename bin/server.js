@@ -1,18 +1,40 @@
 #!/usr/bin/env node
 // MIT License, (c) 2015 Kevin Walchko
 
-var program = require("commander");          // CLI access
-var http = require("http");                  // http-server
-var fs = require("fs");
-var path = require("path");
-var sysinfo = require("../lib/sysinfo.js");   // get system info
-var makePage = require("../lib/page.js");     // create web page
-var tech = require("techno-font");            // web font
-// var localIp = require("ip");                  // get local ip address
+// built in nodejs -----------------------------------------------------------
 var platform = require("os").platform();
+var http = require("http");                 // basic http-server
+var fs = require("fs");                     // access file system
+var path = require("path");                 // handle file paths correctly
+// archeyjs libraries --------------------------------------------------------
+var ping = require("../lib/ping.js");       // ping other Pi's using archeyjs
+var sysinfo = require("../lib/sysinfo.js"); // get system info
+var makePage = require("../lib/page.js");   // create web page
+const ip = require("../lib/ip.js");   // get IP address
+// NPM Packages --------------------------------------------------------------
+var tech = require("techno-font");          // web font
+var program = require("commander");         // CLI access
+// var localIp = require("ip");             // get local ip address
 
-// grab info from npm package
-var pck = require("../package.json");
+function getFileSync(file) {
+    // Read in static files
+    // https://nodejs.org/docs/latest/api/path.html#path_path_resolve_paths
+    var filePath = path.resolve(__dirname, "./static/" + file);
+    // var extname = String(path.extname(filePath)).toLowerCase();
+    var ret = fs.readFileSync(filePath);
+    return ret;
+}
+
+// variables
+// var initStatics = true;
+var html404 = getFileSync("404.html").toString();
+var stylecss = getFileSync("style.css").toString();
+var htmlcmdraw = getFileSync("command.html").toString();
+var htmlcmd;
+var htmlbye = getFileSync("shutdown.html").toString();
+var htmlping = getFileSync("ping.html").toString();
+var grim = getFileSync("grim.png");
+var pck = require("../package.json");  // grab info from npm package
 
 var mimeTypes = {
     ".html": "text/html",
@@ -31,6 +53,18 @@ var mimeTypes = {
     ".svg": "application/image/svg+xml"
 };
 
+const addresses = ip.getIP();
+var my_addr = "";
+for (var k in addresses){
+    var a =addresses[k]["address"];
+    if (ip.forwardable(a)) my_addr = a;
+}
+if (my_addr.length == 0) {
+    console.log("** Couldn't find valide forwardable address");
+    exit(1);
+}
+// console.log(my_addr);
+
 program
     .version(pck.version)
     .description(pck.description)
@@ -39,7 +73,7 @@ program
     .parse(process.argv);
 
 function returnError(url, res){
-    console.log("Wrong path " + url);
+    console.log("** Wrong path " + url);
     res.writeHead(404, { "Content-Type": "text/html" });
     res.end(html404, "utf-8");
 }
@@ -75,23 +109,6 @@ function returnFont(file, res) {
         res.end(content, fmt);
 }
 
-function getFileSync(file) {
-    // Read in static files
-    // https://nodejs.org/docs/latest/api/path.html#path_path_resolve_paths
-    var filePath = path.resolve(__dirname, "./static/" + file);
-    // var extname = String(path.extname(filePath)).toLowerCase();
-    var ret = fs.readFileSync(filePath);
-    return ret;
-}
-
-// read in the statics
-// var initStatics = true;
-var html404 = getFileSync("404.html").toString();
-var stylecss = getFileSync("style.css").toString();
-var htmlcmdraw = getFileSync("command.html").toString();
-var htmlbye = getFileSync("shutdown.html").toString();
-var grim = getFileSync("grim.png");
-
 // Simple REST server
 var server = http.createServer(function(req, res){
     console.log("req.url: " + req.url);
@@ -116,8 +133,8 @@ var server = http.createServer(function(req, res){
         var n = info["network"];
         var keys = Object.keys(n);
         var key = keys[0];
-        var ip_addr = info["network"][key]["address"]; // FIXME
-        htmlcmd = htmlcmdraw.replace(/localhost/g, ip_addr);
+        // var ip_addr = info["network"][key]["address"];
+        // htmlcmd = htmlcmdraw.replace(/localhost/g, ip_addr);
 
         if (req.method === "GET") {
             res.writeHead(200,{"Content-Type": "text/html"});
@@ -126,7 +143,6 @@ var server = http.createServer(function(req, res){
         }
     }
 
-    // page css
     else if (req.url === "/style.css"){
         res.writeHead(200, { "Content-Type": "text/css" });
         res.end(stylecss, "utf-8");
@@ -138,8 +154,18 @@ var server = http.createServer(function(req, res){
     }
 
     else if (req.url === "/command"){
+        htmlcmd = htmlcmdraw.replace(/localhost/g, my_addr);
         res.writeHead(200, { "Content-Type": "text/html" });
         res.end(htmlcmd, "utf-8");
+    }
+
+    else if (req.url === "/ping"){
+        var ans = ping();
+        console.log(ans);
+        res.writeHead(200, { "Content-Type": "text/html" });
+        var hp = htmlping.replace(/TABLE/g, ans);
+        console.log(hp);
+        res.end(hp, "utf-8");
     }
 
     else if (req.url === "/shutdown"){
@@ -226,4 +252,5 @@ server.on("error", function(e) {
 // start web server
 server.listen(program.port);
 console.log(pck.name + " started on port " + program.port);
+console.log("Addresses: " + addresses["en0"]["address"]);
 console.log("");
