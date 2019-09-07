@@ -157,6 +157,8 @@ for host in range(2,250):
         print("** No RPi: {}".format(addr))
 ```
 
+There is an `arjs_ping.py` program in the `bin` directory as a better example.
+
 # To Do
 
 - [ ] For Raspbian, incorporate more info:
