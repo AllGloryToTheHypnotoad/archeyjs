@@ -54,6 +54,8 @@ You can also see if the system is alive by getting a 200 response (no html):
 
     http://localhost:8080/alive
 
+    {"hostname":"bob","network":{"wlan0":{"address":"10.0.6.16","mac":"b6:27:eb:7a:d8:49"}},"rpi":"Pi3B+ 1GB"}
+
 
 Or get a json response back by:
 
@@ -170,6 +172,7 @@ for host in range(2,250):
 
 | Version | Date       | Comments |
 |---------|------------|----------|
+| 1.9.0   | 2019/09/07 | Added a ping function to scan network |
 | 1.8.0   | 2019/09/03 | Focused on Raspberry Pi: eth0 and wlan0 reporting |
 | 1.7.0   | 2017/12/09 | Added shutdown/reboot commands and general clean up |
 | 1.6.0   | 2017/06/06 | Added techno-font |
