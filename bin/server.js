@@ -160,12 +160,13 @@ var server = http.createServer(function(req, res){
     }
 
     else if (req.url === "/ping"){
-        var ans = ping();
+        ping(function(ans){
         console.log(ans);
         res.writeHead(200, { "Content-Type": "text/html" });
         var hp = htmlping.replace(/TABLE/g, ans);
         console.log(hp);
         res.end(hp, "utf-8");
+        });
     }
 
     else if (req.url === "/shutdown"){
