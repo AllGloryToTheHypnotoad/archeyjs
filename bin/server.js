@@ -72,7 +72,7 @@ const alive_rep = {
     'rpi': rpi()
 };
 
-// console.log(my_addr);
+console.log(alive_rep);
 
 program
     .version(pck.version)
