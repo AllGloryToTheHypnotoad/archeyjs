@@ -72,7 +72,7 @@ const alive_rep = {
     'rpi': rpi()
 };
 
-console.log("boot");
+console.log(">> boot -------");
 console.log(alive_rep);
 
 program
